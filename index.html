@@ -285,24 +285,22 @@
     background: #111; color: #fff; font-size: 15px; font-weight: 700; cursor: pointer;
   }
 
-  /* 难度拦截弹窗（新客约进阶/高强度课提醒） */
-  .diff-card {
-    width: 290px; background: #fff; border-radius: 20px;
-    padding: 26px 22px 18px; text-align: center;
+  /* 高强度安全提示弹窗（10-8 会议：约高强度课拦截，改为截图样式） */
+  .safety-card {
+    width: 300px; background: #f4f4f5; border-radius: 14px; overflow: hidden;
     animation: pop .3s cubic-bezier(.2,1.4,.4,1);
   }
-  .diff-card .dc-ico { font-size: 34px; }
-  .diff-card .dc-title { margin-top: 10px; font-size: 17px; font-weight: 800; color: #111; }
-  .diff-card .dc-title b { color: #b03a2e; }
-  .diff-card .dc-text { margin-top: 10px; font-size: 13px; color: #777; line-height: 1.7; }
-  .diff-card .dc-main {
-    margin-top: 18px; width: 100%; height: 44px; border: 0; border-radius: 999px;
-    background: #111; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer;
+  .safety-card .sc-title { margin-top: 20px; text-align: center; font-size: 17px; font-weight: 800; color: #111; }
+  .safety-card .sc-text { margin: 12px 24px 0; text-align: center; font-size: 13px; color: #444; line-height: 1.7; }
+  .safety-card .sc-weights { margin: 8px 24px 20px; text-align: center; }
+  .safety-card .sc-weights .wl {
+    display: inline-block; text-align: left;
+    font-size: 13px; color: #444; line-height: 2.0;
   }
-  .diff-card .dc-sub {
-    margin-top: 10px; width: 100%; height: 40px; border-radius: 999px;
-    background: #fff; border: 1px solid #e2e3e8; color: #666; font-size: 13px; cursor: pointer;
-  }
+  .safety-card .sc-btns { display: flex; border-top: 1px solid #e2e2e6; }
+  .safety-card .sc-btns button { flex: 1; height: 48px; border: 0; font-size: 15px; cursor: pointer; }
+  .safety-card .sc-no { background: #fff; color: #333; }
+  .safety-card .sc-ok { background: #f7b500; color: #1a1a1a; font-weight: 700; }
 
   /* ============ 欢迎弹窗（方案 4.1 ①） ============ */
   .mask {
@@ -576,6 +574,22 @@
     background: #fff; color: #111; font-size: 14px; font-weight: 600;
     border: 1px solid #e2e3e8; cursor: pointer;
   }
+
+  /* 公众号关注触点（10-8 会议新增） */
+  .mp-card {
+    margin-top: 22px; background: #fff; border-radius: 14px; padding: 13px 12px;
+    display: flex; align-items: center; gap: 12px; cursor: pointer;
+  }
+  .mp-card .mp-qr {
+    width: 46px; height: 46px; border-radius: 8px; flex: none;
+    border: 1px dashed #c4c7cf; background: #f6f6f8;
+    font-size: 9px; color: #9a9ea8; line-height: 1.5;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+  }
+  .mp-card .mp-tx { flex: 1; text-align: left; }
+  .mp-card .mp-tx b { display: block; font-size: 14px; color: #111; font-weight: 700; }
+  .mp-card .mp-tx span { display: block; margin-top: 4px; font-size: 11px; color: #9a9ea8; line-height: 1.5; }
+  .mp-card .mp-go { flex: none; font-size: 12px; color: #111; font-weight: 600; }
 
   .guide-bottom {
     padding: 10px 16px 30px; display: flex; align-items: center; justify-content: space-between;
@@ -3030,7 +3044,9 @@
 
         <div class="fg-section">
           <div class="fg-title"><span class="no">1</span>上课须知</div>
+          <div class="fg-item"><b>到店指引</b>：预约成功后，在「全部订单」→ 订单详情页查看门店导航与到店指引</div>
           <div class="fg-item"><b>提前 15 分钟到场</b>，换上舒适运动服进教室</div>
+          <div class="fg-item"><b>进店签到</b>：开课前 30 分钟开始签到，向接待台出示「我的预约」中的预约码即可</div>
           <div class="fg-item"><b>主动和教练说你是新手</b>，教练会针对性调整动作难度，不用担心跟不上</div>
           <div class="fg-item"><b>临时有事？</b>开课前 2 小时可在「全部订单」选择对应订单申请退款</div>
         </div>
@@ -3071,14 +3087,20 @@
         </div>
       </div>
 
-      <!-- ========== 难度拦截弹窗 ========== -->
+      <!-- ========== 高强度安全提示弹窗 ========== -->
       <div class="mask" id="mask-diff">
-        <div class="diff-card">
-          <div class="dc-ico">⚠️</div>
-          <div class="dc-title">这是一节「<b id="diff-warn-text">进阶</b>」课</div>
-          <div class="dc-text">课程难度较大，请根据自身情况选择。<br>第一次训练建议先从「新手友好」课开始。</div>
-          <button class="dc-main" onclick="diffGoEasy()">换个新手友好课</button>
-          <button class="dc-sub" onclick="diffContinue()">我知道了，继续预约</button>
+        <div class="safety-card">
+          <div class="sc-title">安全提示</div>
+          <div class="sc-text">本课程运动强度及难度较大，不建议低于以下训练重量同学参加。</div>
+          <div class="sc-weights"><div class="wl">
+            实力推：女生≤15公斤，男生≤25公斤<br>
+            深蹲：女生≤20公斤，男生≤30公斤<br>
+            硬拉：女生≤30公斤，男生≤40公斤
+          </div></div>
+          <div class="sc-btns">
+            <button class="sc-no" onclick="diffGoEasy()">再想想</button>
+            <button class="sc-ok" onclick="diffContinue()">我知道了</button>
+          </div>
         </div>
       </div>
 
@@ -3201,17 +3223,25 @@
             <!-- 第 1 屏：上课须知 -->
             <div class="guide-page">
               <h2>上课须知</h2>
-              <div class="gp-sub">第一次上课必看，告别社恐尴尬</div>
+              <div class="gp-sub">从查路线到进店签到，第一次上课必看</div>
               <div class="tip-card">
                 <div class="n">1</div>
-                <div class="tx"><b>提前 15 分钟到场</b><span>换上舒适运动服进教室，留足准备时间</span></div>
+                <div class="tx"><b>到店指引这样查</b><span>预约成功后，去「全部订单」→ 订单详情页，查看门店导航与到店指引</span></div>
               </div>
               <div class="tip-card">
                 <div class="n">2</div>
-                <div class="tx"><b>主动和教练说你是新手</b><span>教练会针对性调整动作难度，完全不用担心跟不上</span></div>
+                <div class="tx"><b>提前 15 分钟到场</b><span>换上舒适运动服进教室，留足准备时间</span></div>
               </div>
               <div class="tip-card">
                 <div class="n">3</div>
+                <div class="tx"><b>进店先签到</b><span>开课前 30 分钟开始签到，向接待台出示「我的预约」中的预约码即可</span></div>
+              </div>
+              <div class="tip-card">
+                <div class="n">4</div>
+                <div class="tx"><b>主动和教练说你是新手</b><span>教练会针对性调整动作难度，完全不用担心跟不上</span></div>
+              </div>
+              <div class="tip-card">
+                <div class="n">5</div>
                 <div class="tx"><b>临时有事？</b><span>开课前 2 小时可在「全部订单」选择对应订单申请退款</span></div>
               </div>
             </div>
@@ -3275,6 +3305,11 @@
                 <div class="emoji">💪</div>
                 <h3>准备好了，明天见！</h3>
                 <p>开启开课提醒，课前不怕忘<br>课程注意事项可随时回看</p>
+              </div>
+              <div class="mp-card" onclick="toast('演示版：拉起公众号关注组件')">
+                <div class="mp-qr">公众号<br>二维码</div>
+                <div class="mp-tx"><b>关注「SAVAGE」公众号</b><span>新课首发 · 福利活动 · 课程动态，第一时间知道</span></div>
+                <span class="mp-go">关注 ›</span>
               </div>
               <div class="end-cta">
                 <button class="main" onclick="askNotify()">开启开课提醒</button>
@@ -3507,7 +3542,7 @@
     if(filterSel > 0) toast('已按「' + FILTER_DATA[filterTab].opts[filterSel] + '」筛选（演示）');
   }
 
-  /* ---------- 难度拦截：新客约进阶/高强度课先提醒 ---------- */
+  /* ---------- 高强度安全提示：约高强度课先弹安全提示 ---------- */
   var pendingBook = null;
   function tryBook(diff, name, time, price, venue){
     if(diff === 'easy'){
@@ -3515,7 +3550,6 @@
       return;
     }
     pendingBook = { name: name, time: time, price: price, venue: venue };
-    $('diff-warn-text').textContent = diff === 'hard' ? '高强度' : '进阶';
     $('mask-diff').classList.add('show');
   }
   function diffGoEasy(){
