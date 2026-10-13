@@ -450,7 +450,7 @@
   .empty-newbie .en-btns .main { background: #111622; color: #fff; font-weight: 600; }
   .empty-newbie .en-btns .sub { background: #f2f3f5; color: #333; }
 
-  /* ============ 完课后预约详情页（还原线上截图 · 教练行加收藏按钮） ============ */
+  /* ============ 完课后预约详情页（还原线上截图 · 教练行加关注按钮） ============ */
   #page-bookdone.active { display: block; padding-bottom: 0; background: #10141c; }
   .bd-scroll { position: absolute; inset: 0; overflow-y: auto; scrollbar-width: none; background: #10141c; }
   .bd-scroll::-webkit-scrollbar { display: none; }
@@ -670,21 +670,14 @@
     border: 1px solid #e2e3e8; cursor: pointer;
   }
 
-  /* 公众号关注触点（10-8 会议新增） */
-  .mp-card {
-    margin-top: 22px; background: #fff; border-radius: 14px; padding: 13px 12px;
-    display: flex; align-items: center; gap: 12px; cursor: pointer;
-  }
-  .mp-card .mp-qr {
-    width: 46px; height: 46px; border-radius: 8px; flex: none;
-    border: 1px dashed #c4c7cf; background: #f6f6f8;
-    font-size: 9px; color: #9a9ea8; line-height: 1.5;
-    display: flex; align-items: center; justify-content: center; text-align: center;
-  }
-  .mp-card .mp-tx { flex: 1; text-align: left; }
-  .mp-card .mp-tx b { display: block; font-size: 14px; color: #111; font-weight: 700; }
-  .mp-card .mp-tx span { display: block; margin-top: 4px; font-size: 11px; color: #9a9ea8; line-height: 1.5; }
-  .mp-card .mp-go { flex: none; font-size: 12px; color: #111; font-weight: 600; }
+  /* 公众号关注触点（双入口，仅未关注展示；大二维码页面内直接展示，长按识别） */
+  .oa-block { margin-top: 22px; background: #fff; border-radius: 14px; padding: 18px 16px 14px; text-align: center; cursor: pointer; }
+  .oa-block.paid { margin-top: 14px; border: 1px solid #eef0f4; }
+  .oa-block .ob-qr { width: 140px; height: 140px; margin: 0 auto 10px; }
+  .oa-block .ob-qr svg { width: 100%; height: 100%; display: block; }
+  .oa-block .ob-title { font-size: 15px; font-weight: 800; color: #111; }
+  .oa-block .ob-sub { margin-top: 5px; font-size: 11px; color: #9a9ea8; line-height: 1.5; }
+  .oa-block .ob-hint { margin-top: 8px; font-size: 12px; color: #111; font-weight: 600; }
 
   .guide-bottom {
     padding: 10px 16px 30px; display: flex; align-items: center; justify-content: space-between;
@@ -2633,9 +2626,9 @@
         </div>
 
         <!-- 筛选栏：新增「新手友好」置顶（方案 4.6） -->
-        <div class="filters">
+        <div class="filters" id="filters-bar">
           <div class="pill newbie" id="pill-newbie" onclick="toggleNewbie()">🌱 新手友好</div>
-          <div class="pill" id="pill-fav" onclick="toast('演示版：只看收藏教练的课')">收藏教练</div>
+          <div class="pill" id="pill-fav" onclick="toast('演示版：只看关注教练的课')">关注教练</div>
           <div class="pill" id="pill-course" onclick="openFilter('course')">课程
             <svg width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1l3 3 3-3" stroke="#555" stroke-width="1.3" stroke-linecap="round"/></svg>
           </div>
@@ -2741,7 +2734,7 @@
         </div>
 
         <!-- 常驻入口 · 悬浮按钮 -->
-        <button class="float-guide" onclick="openFullGuide('home')">
+        <button class="float-guide" id="float-guide-btn" onclick="openFullGuide('home')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V5.5M8 7.5h8M8 11h5"/></svg>
           新手指南
         </button>
@@ -3109,9 +3102,17 @@
             </div>
             <div class="gb-txt">
               <b>第一次来 SAVAGE？</b>
-              <span>3 分钟了解上课全流程：须知 · 教室 · 设施</span>
+              <span>3 分钟速览攻略，新手上课也从容</span>
             </div>
             <div class="gb-arrow">›</div>
+          </div>
+
+          <!-- 关注公众号：双入口之支付成功页（仅未关注展示，大二维码直接展示，长按识别） -->
+          <div class="oa-block paid oa-entry" onclick="oaScan()">
+            <div class="ob-qr"></div>
+            <div class="ob-title">关注「SAVAGE」公众号</div>
+            <div class="ob-sub">新课首发 · 福利活动 · 课程动态，第一时间知道</div>
+            <div class="ob-hint">长按识别二维码，马上关注</div>
           </div>
 
           <!-- 取消规则提示（口径已确认） -->
@@ -3151,19 +3152,19 @@
 
         <div class="fg-section">
           <div class="fg-title"><span class="no">1</span>上课须知</div>
-          <div class="fg-item"><b>到店指引</b>：预约成功后，在「我的 - 预约记录 - 预约详情」查看门店指引和定位</div>
-          <div class="fg-item"><b>建议提前 15 分钟到场</b>，换上舒适运动服进教室</div>
-          <div class="fg-item"><b>如何签到？</b>进入「我的」页面，点击右上角二维码图标；使用「入场凭证」二维码对准门禁器扫码，扫描后即完成签到</div>
-          <div class="fg-item"><b>第一次打卡 SAVAGE 课堂不用害羞</b>：课前主动和教练说自己是新手，教练会针对性调整动作难度，完全不用担心跟不上！</div>
-          <div class="fg-item"><b>临时有事？</b>开课前 2 小时可在订单中免费取消</div>
+          <div class="fg-item"><b>前往门店</b>：预约成功后，在「运动」- 点击「预约信息」- 点击「门店定位&门店指引」，根据指引到达门店</div>
+          <div class="fg-item"><b>自助签到进门</b>：开课前 30 分钟开放签到，进入「我的」页面 - 点击右上角「二维码图标」- 出示「二维码」对准门禁器扫码，显示签到成功即可开门进场</div>
+          <div class="fg-item"><b>提前到场</b>：建议提前 15 分钟到店熟悉场地，更衣室换装，前往教室等候开课</div>
+          <div class="fg-item"><b>🙋 我是新同学</b>：请大胆和教练说你是新同学！教练会调整动作难度，让你轻松跟上训练！</div>
+          <div class="fg-item"><b>临时有事，无法训练</b>：开课前 2 小时可在「全部订单」选择对应订单申请退款</div>
         </div>
 
         <div class="fg-section">
           <div class="fg-title"><span class="no">2</span>教室导览</div>
-          <div class="fg-item"><b>团课教室</b>：按课程准备器械，如 BODYPUMP 需杠铃杆、杠铃片、瑜伽垫、踏板</div>
-          <div class="fg-item"><b>综训教室</b>：跟随教练当堂训练计划进行</div>
-          <div class="fg-item"><b>单车教室</b>：课前务必调试座椅高度与前后位置</div>
-          <div class="fg-item"><b>动静教室</b>：进入教室后跟随教练指引，等待上课</div>
+          <div class="fg-item"><b>团课教室</b>：根据地面点位贴选一个喜欢的位置，按教练提示备好器械，妥善放置随身物品；BODYPUMP 需准备杠铃杆、杠铃片、踏板与 BC 训练垫</div>
+          <div class="fg-item"><b>综训教室</b>：教练会提前按当节课训练计划摆好器械，进教室后可自由热身，等待课程开始</div>
+          <div class="fg-item"><b>单车教室</b>：课前调节车把高度、座椅高度与座椅距离：座椅与髋关节齐平、车把同腰高、车座距车头约一臂，上车后膝盖略弯曲；有困难就大胆向教练举手 🙋</div>
+          <div class="fg-item"><b>动静教室</b>：课前按教练提示取用器材，瑜伽垫、瑜伽砖、瑜伽毯收纳在柜子内</div>
         </div>
 
         <div class="fg-section">
@@ -3172,8 +3173,8 @@
           <div class="fg-item"><b>储物柜</b>：牢记柜子编号，防止迷路</div>
           <div class="fg-item"><b>饮水机</b>：常温/热饮，自带杯可自助使用，接热水小心烫</div>
           <div class="fg-item"><b>毛巾柜</b>：一次性湿毛巾，训练完毕自助取用</div>
-          <div class="fg-item"><b>吹风机</b>：大汗淋漓后，可烘干头发</div>
-          <div class="fg-item"><b>售卖机</b>：自助售卖柜有「常温」「冷藏」两种温度，根据自需选取</div>
+          <div class="fg-item"><b>吹风机</b>：门店均配备自助吹风机，上完课大汗淋漓，用来吹干头发超方便</div>
+          <div class="fg-item"><b>售卖柜</b>：自助售卖柜设有「常温」「冷藏」两种温度，按需购买～</div>
           <div class="fg-item"><b>AED</b>：门店配备自动体外除颤仪，为安全护航</div>
         </div>
 
@@ -3181,7 +3182,7 @@
           <div class="fg-title"><span class="no">4</span>约课 tips</div>
           <div class="fg-item"><b>精准搜课</b>：顶部日期栏左右滑动切换上课日；筛选栏支持教室/教练/课程收藏与关键词搜索</div>
           <div class="fg-item"><b>门店玩法</b>：筛选栏勾选门店直达该店课表；点门店名进主页，导航、环境、常驻教练一次看完</div>
-          <div class="fg-item"><b>教练 pick</b>：点教练头像看履历资质与全部排课，收藏后一键直达</div>
+          <div class="fg-item"><b>教练 pick</b>：点教练头像看履历资质与全部排课，关注后一键直达</div>
           <div class="fg-item"><b>课程详情</b>：授课教练、训练内容、适配人群、穿搭/补水/饮食须知全写明</div>
         </div>
 
@@ -3217,8 +3218,9 @@
       <!-- ========== 欢迎弹窗 ========== -->
       <div class="mask" id="mask-welcome">
         <div class="welcome-card">
-          <div class="hi">欢迎来到 SAVAGE 🎉</div>
-          <div class="sub" id="welcome-sub">新人礼包已放入你的卡包</div>
+          <div class="hi">Nice to meet you！🎉</div>
+          <div class="sub" id="welcome-sub">新人礼包已存入你的卡包</div>
+          <div class="sub" style="margin-top:4px">一起快速解锁 SAVAGE</div>
           <div class="gift-box" id="welcome-gift">
             <div class="g-title">NEWCOMER PACK</div>
             <div class="g-item"><b>新人体验券 ×1</b><span>首课 ¥0</span></div>
@@ -3229,7 +3231,7 @@
             <div class="g-item"><b>选课</b><span>新手可选 🌱 新手友好课</span></div>
             <div class="g-item"><b>放课时间</b><span>每周二 · 周五 17:00 放新课</span></div>
           </div>
-          <button class="cta-main" onclick="welcomeGo()">去约第一节课</button>
+          <button class="cta-main" onclick="welcomeGo()">我想约第一节课</button>
           <button class="cta-sub" onclick="welcomeSkip()">先逛逛</button>
         </div>
       </div>
@@ -3330,7 +3332,7 @@
         </div>
       </div>
 
-      <!-- ========== 页面：完课后预约详情页（还原线上截图 · 教练行加收藏按钮） ========== -->
+      <!-- ========== 页面：完课后预约详情页（还原线上截图 · 教练行加关注按钮） ========== -->
       <div class="page" id="page-bookdone">
         <div class="bd-scroll">
           <div class="bd-hero">
@@ -3363,7 +3365,7 @@
           </div>
 
           <div class="bd-body">
-            <!-- 课程卡（还原线上；教练行右侧新增收藏按钮） -->
+            <!-- 课程卡（还原线上；教练行右侧新增关注按钮） -->
             <section class="bd-card" style="position:relative">
               <div class="bd-course-row">
                 <b>综合体能训练-初阶课</b>
@@ -3375,7 +3377,7 @@
                   <i class="cc-mini-avatar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20a7.4 7.4 0 0 1 14.4 0"/></svg></i>
                   SAVAGE 认证教练
                 </span>
-                <button class="btn-fav-sm" id="cc-fav" onclick="favCoach(event)">♡ 收藏教练</button>
+                <button class="btn-fav-sm" id="cc-fav" onclick="favCoach(event)">♡ 关注教练</button>
               </div>
               <div class="bd-row"><span class="k">教室</span><span class="v">深圳嘉乐道店团课教室A</span></div>
               <div class="bd-row"><span class="k">时间</span><span class="v">9月30日 星期三 17:00 - 18:00</span></div>
@@ -3416,7 +3418,7 @@
       <!-- ========== 精简指引 4 屏 ========== -->
       <div class="guide-overlay" id="guide">
         <div class="guide-top">
-          <div class="gt-title">上课全流程 · 3 分钟看完</div>
+          <div class="gt-title">3 分钟速成 · 上课全流程</div>
           <button class="gt-close" onclick="closeGuide()">✕</button>
         </div>
         <div class="guide-viewport">
@@ -3425,30 +3427,26 @@
             <!-- 第 1 屏：上课须知 -->
             <div class="guide-page">
               <h2>上课须知</h2>
-              <div class="gp-sub">从查路线到进店签到，第一次上课必看</div>
+              <div class="gp-sub">从出门到进店签到，第一次上课必看</div>
               <div class="tip-card">
                 <div class="n">1</div>
-                <div class="tx"><b>到店指引哪里看</b><span>预约成功后，在「我的 - 预约记录 - 预约详情」查看门店指引和定位</span></div>
+                <div class="tx"><b>前往门店</b><span>预约成功后，在「运动」- 点击「预约信息」- 点击「门店定位&门店指引」，根据指引到达门店</span></div>
               </div>
               <div class="tip-card">
                 <div class="n">2</div>
-                <div class="tx"><b>建议提前 15 分钟到场</b><span>换上舒适运动服进教室</span></div>
+                <div class="tx"><b>自助签到进门</b><span>开课前 30 分钟开放签到：进入「我的」页面 - 点击右上角「二维码图标」- 出示「二维码」对准门禁器扫码，显示签到成功即可开门进场</span></div>
               </div>
               <div class="tip-card">
                 <div class="n">3</div>
-                <div class="tx"><b>如何签到？</b><span>进入「我的」页面，点击右上角二维码图标；使用「入场凭证」二维码对准门禁器扫码，扫描后即完成签到</span></div>
+                <div class="tx"><b>提前到场</b><span>建议提前 15 分钟到店熟悉场地，更衣室换装，前往教室等候开课</span></div>
               </div>
               <div class="tip-card">
                 <div class="n">4</div>
-                <div class="tx"><b>第一次打卡 SAVAGE 课堂不用害羞</b><span>课前主动和教练说自己是新手，教练会针对性调整动作难度，完全不用担心跟不上！</span></div>
+                <div class="tx"><b>🙋 我是新同学</b><span>请大胆和教练说你是新同学！教练会调整动作难度，让你轻松跟上训练！</span></div>
               </div>
               <div class="tip-card">
                 <div class="n">5</div>
-                <div class="tx"><b>第一次上团课，放轻松</b><span>可以站后排，跟不上就划水，累了随时出来透气——没人盯着你</span></div>
-              </div>
-              <div class="tip-card">
-                <div class="n">6</div>
-                <div class="tx"><b>临时有事？</b><span>开课前 2 小时可在订单中免费取消</span></div>
+                <div class="tx"><b>临时有事，无法训练</b><span>开课前 2 小时可在「全部订单」选择对应订单申请退款</span></div>
               </div>
             </div>
 
@@ -3459,20 +3457,20 @@
               <div class="room-carousel" id="room-carousel">
                 <div class="room r1">
                   <b>团课教室</b>
-                  <span>按课程所需准备对应器械：BODYPUMP 需杠铃杆、杠铃片、瑜伽垫、踏板</span>
+                  <span>进入教室，根据地面点位贴选一个喜欢的位置，按教练提示备好器械，妥善放置手机、水杯等随身物品。以 BODYPUMP 为例：需准备杠铃杆、杠铃片、踏板与 BC 训练垫</span>
                 </div>
                 <div class="room r2">
                   <b>综训教室</b>
-                  <span>根据教练当堂课程的训练计划，做好热身，跟随训练</span>
+                  <span>教练会提前根据当节课的训练计划摆好训练器械，进入教室后可以自由热身，等待课程开始！</span>
                 </div>
                 <div class="room r3">
                   <b>单车教室</b>
-                  <span>任选一辆单车，课前务必调试座椅高度与前后位置</span>
+                  <span>选择你喜欢的位置，课前调节车把高度、座椅高度与座椅距离，避免膝关节运动损伤。调节方法：站在单车旁，座椅与髋关节齐平、车把同腰高、车座距车头约一臂，上车后膝盖略弯曲；有困难就大胆向教练举手 🙋</span>
                 </div>
                 <div class="room r4">
                   <span class="ph">实拍图待补</span>
                   <b>动静教室</b>
-                  <span>进入教室后跟随教练指引，等待上课</span>
+                  <span>课前按教练提示取用课程所需器材，瑜伽垫、瑜伽砖、瑜伽毯收纳在柜子内</span>
                 </div>
               </div>
               <div class="room-dots" id="room-dots"><i class="on"></i><i></i><i></i><i></i></div>
@@ -3505,7 +3503,7 @@
                 </div>
                 <div class="fac" data-fac="5" onclick="pickFac(this)">
                   <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h4"/><circle cx="15.5" cy="16.5" r="0.6"/></svg></span>
-                  售卖机
+                  售卖柜
                 </div>
                 <div class="fac" data-fac="6" onclick="pickFac(this)">
                   <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg></span>
@@ -3519,13 +3517,15 @@
             <div class="guide-page">
               <div class="end-hero">
                 <div class="emoji">💪</div>
-                <h3>准备好了，明天见！</h3>
-                <p>开启开课提醒，课前不怕忘<br>课程注意事项可随时回看</p>
+                <h3>准备好了，课上见！</h3>
+                <p>下课别走！课程结束后会有大合照环节，记得露出你阳光的笑容，留下运动的证据 ❤️<br>照片在底部「运动」-「运动墙」查看保存</p>
               </div>
-              <div class="mp-card" onclick="toast('演示版：拉起公众号关注组件')">
-                <div class="mp-qr">公众号<br>二维码</div>
-                <div class="mp-tx"><b>关注「SAVAGE」公众号</b><span>新课首发 · 福利活动 · 课程动态，第一时间知道</span></div>
-                <span class="mp-go">关注 ›</span>
+              <!-- 关注公众号：双入口之指引第 4 屏（仅未关注展示，大二维码直接展示，长按识别） -->
+              <div class="oa-block oa-entry" onclick="oaScan()">
+                <div class="ob-qr"></div>
+                <div class="ob-title">关注「SAVAGE」公众号</div>
+                <div class="ob-sub">新课首发 · 福利活动 · 课程动态，第一时间知道</div>
+                <div class="ob-hint">长按识别二维码，马上关注</div>
               </div>
               <div class="end-cta">
                 <button class="main" onclick="askNotify()">开启开课提醒</button>
@@ -3617,10 +3617,11 @@
 <div class="foot-tools">
   <span>在手机框内点击操作，体验完整新客链路</span>
   <button class="link-btn" id="btn-mode" onclick="toggleCouponMode()">🔀 切换：无券版引导</button>
+  <button class="link-btn" id="btn-oa" onclick="toggleOA()">🔀 切换：已关注公众号</button>
   <button class="link-btn" onclick="startPostClassGuide()">⏭ 模拟：首课完成后再次进入</button>
   <button class="link-btn" onclick="startThirdBooking()">⏭ 模拟：第 3 次约课（会籍轻提示）</button>
   <button class="link-btn" onclick="startEmptyNewbie()">⏭ 模拟：新手友好筛选后无课</button>
-  <button class="link-btn" onclick="startBookDone()">⏭ 模拟：完课后预约详情（收藏教练）</button>
+  <button class="link-btn" onclick="startBookDone()">⏭ 模拟：完课后预约详情（关注教练）</button>
   <button class="link-btn" onclick="resetDemo()">↺ 重置演示</button>
 </div>
 
@@ -3683,7 +3684,13 @@
   }
   function welcomeSkip(){
     $('mask-welcome').classList.remove('show');
-    toast('可在右下角「新手指南」随时查看');
+    goTab('home');
+    /* 「先逛逛」不再只给 toast：进入逛课软引导，最后落到 3 分钟速成入口 */
+    setTimeout(function(){
+      startTour(BROWSE_STEPS, function(){
+        toast('攻略常驻右下角「新手指南」，随时回看');
+      }, '完成');
+    }, 600);
   }
 
   /* ---------- ② 新手友好筛选 ---------- */
@@ -3726,7 +3733,7 @@
     else updateEmptyNewbie();
   }
 
-  /* ---------- 完课后预约详情页 · 收藏教练 ---------- */
+  /* ---------- 完课后预约详情页 · 关注教练 ---------- */
   function startBookDone(){
     showPage('bookdone');
     toast('演示：第一节课已上完，打开预约详情页');
@@ -3735,8 +3742,47 @@
     if(e) e.stopPropagation();
     var b = $('cc-fav');
     var on = b.classList.toggle('on');
-    b.textContent = on ? '♥ 已收藏' : '♡ 收藏教练';
-    toast(on ? '已收藏，下次约课点筛选栏「收藏教练」一筛就找到' : '已取消收藏');
+    b.textContent = on ? '♥ 已关注' : '♡ 关注教练';
+    toast(on ? '已关注，下次约课点筛选栏「关注教练」一筛就找到' : '已取消关注');
+  }
+
+  /* ---------- 关注公众号（双入口，仅未关注展示；大二维码页面内直接展示，长按识别） ---------- */
+  var OA_FOLLOWED = false;
+  function oaScan(){
+    toast('演示版：长按识别二维码，跳转「SAVAGE」公众号关注页');
+  }
+  /* 生成示意二维码（仅演示视觉，不可扫描） */
+  function buildQr(el){
+    if(el.dataset.done) return;
+    el.dataset.done = 1;
+    var n = 25, s = '';
+    function finder(x, y){
+      s += '<rect x="'+x+'" y="'+y+'" width="7" height="7" fill="#111"/>'
+         + '<rect x="'+(x+1)+'" y="'+(y+1)+'" width="5" height="5" fill="#fff"/>'
+         + '<rect x="'+(x+2)+'" y="'+(y+2)+'" width="3" height="3" fill="#111"/>';
+    }
+    for(var i=0;i<n;i++){
+      for(var j=0;j<n;j++){
+        var inFinder = (i<8&&j<8)||(i<8&&j>=n-8)||(i>=n-8&&j<8);
+        if(inFinder) continue;
+        if((i*31+j*17+((i*j)%7))%3===0) s += '<rect x="'+j+'" y="'+i+'" width="1" height="1" fill="#111"/>';
+      }
+    }
+    finder(0,0); finder(n-7,0); finder(0,n-7);
+    el.innerHTML = '<svg viewBox="0 0 '+n+' '+n+'" shape-rendering="crispEdges"><rect width="'+n+'" height="'+n+'" fill="#fff"/>'+s+'</svg>';
+  }
+  function buildQrAll(){
+    document.querySelectorAll('.ob-qr').forEach(buildQr);
+  }
+  buildQrAll();
+  function toggleOA(){
+    OA_FOLLOWED = !OA_FOLLOWED;
+    updateOA();
+    $('btn-oa').textContent = OA_FOLLOWED ? '🔀 切换：未关注公众号' : '🔀 切换：已关注公众号';
+    toast(OA_FOLLOWED ? '当前：已关注公众号，两处入口均不再展示' : '当前：未关注公众号，两处入口展示');
+  }
+  function updateOA(){
+    document.querySelectorAll('.oa-entry').forEach(function(c){ c.style.display = OA_FOLLOWED ? 'none' : 'block'; });
   }
 
   /* ---------- 放课提醒订阅（4.12 A 组） ---------- */
@@ -3831,10 +3877,22 @@
 
   /* ---------- 约课操作指引 · 新手引导浮层 ---------- */
   var TOUR_STEPS = [
-    { sel: '#tour-date',   text: '顶部日期栏左右滑动，挑你有空的训练日' },
-    { sel: '#pill-newbie', text: '团课老手直接往下翻挑课；第一次上课不知道练什么？点亮「新手友好」，只看适合的课' },
-    { sel: '#tour-course', text: '课程卡片直接标好难度：🌱 新手友好 / 进阶 / 高强度，第一次认准 🌱；点卡片还能看教练、内容、穿搭与补水须知' },
-    { sel: '#tour-book',   text: '选好点「预约」，新人券自动抵扣 ¥0 下单' }
+    { sel: '#tour-date',   text: '左右滑动，选择适合你的训练日' },
+    { sel: '#pill-newbie', text: '初次训练不知选课？点击「新手友好」，一键筛选适配课程' },
+    { sel: '#tour-course', text: '点击课程了解详细信息：难度等级、教练信息、课程简介与装备建议等' },
+    { sel: '#tour-course', text: '想练哪节自己挑：点中课程的「预约」即可下单，新人券自动抵扣 ¥0' }
+  ];
+
+  /* 「先逛逛」软引导：逛课功能逐个点亮，最后落到 3 分钟速成入口（修改意见 B 链路） */
+  var BROWSE_STEPS = [
+    { sel: '#tour-date',   page: 'home', text: '左右滑动，选择适合你的训练日' },
+    { sel: '#pill-newbie', page: 'home', text: '初次训练不知选课？点击「新手友好」，一键筛选适配课程' },
+    { sel: '#tour-course', page: 'home', text: '点击课程了解详细信息：难度等级、教练信息、课程简介与装备建议等' },
+    { sel: '#filters-bar', page: 'home', text: '筛选 + 收藏，找课效率翻倍：「课程」-「课程类型」多种课程随心选，「门店」-「全部门店」快速锁定想去的店；门店/教室/教练可一键收藏，顶部关键词搜索秒找课' },
+    { sel: '#tour-course', page: 'home', text: '课程详情提前悉知：难度等级、教练信息、课程简介与装备建议，器械准备、课前饮食小提示全部在这里，上课不再手忙脚乱' },
+    { sel: '#tab-sport',   page: 'home', text: '训练结束，帮你记录来时路！点底部「运动」：上课次数、运动时长都在「训练记录」，SAVAGE 一起见证你的自我突破' },
+    { sel: '#sportWallTab', page: 'sport', text: '下课别走！课程结束后会有大合照环节，记得露出你阳光的笑容，留下运动的证据 ❤️ 照片在「运动墙」查看保存', onShow: function(){ showSportWall(); } },
+    { sel: '#float-guide-btn', page: 'home', text: '还没去 SAVAGE 上过课？点这里看 3 分钟新手攻略，秒变老手！' }
   ];
   var tourIdx = 0;
   var tourSteps = TOUR_STEPS;   /* 当前生效的步骤（默认约课指引） */
@@ -3846,7 +3904,7 @@
     if(!steps && !DEMO_COUPON){
       /* 无券版（B）：第 4 步去掉券话术，改引导看门店指引 */
       tourSteps = TOUR_STEPS.slice();
-      tourSteps[3] = { sel: '#tour-book', text: '选好点「预约」下单，门店指引在预约详情页查看，开课前必看' };
+      tourSteps[3] = { sel: '#tour-course', text: '想练哪节自己挑：点中课程的「预约」即可下单，门店指引在预约详情页查看，开课前必看' };
     }
     tourDone = onDone || null;
     tourLastLabel = lastLabel || '去选课 ›';
@@ -4023,8 +4081,8 @@
     ['储物柜', '贵重物品请入柜。温馨提示：牢记柜子编号，防止迷路。', 'assets/fac-chuwugui.jpg'],
     ['饮水机', '常温 / 热饮均有，自带杯的伙伴可课前课后自助使用。接热水时小心烫。', 'assets/fac-yinshuiji.jpg'],
     ['毛巾柜', '一次性湿毛巾，训练完毕可自助取用。', 'assets/fac-maojingui.jpg'],
-    ['吹风机', '大汗淋漓后，可烘干头发。'],
-    ['售卖机', '自助售卖柜有「常温」「冷藏」两种温度，根据自需选取。'],
+    ['吹风机', '门店均配备自助吹风机，上完课大汗淋漓，用来吹干头发超方便。'],
+    ['售卖柜', '自助售卖柜设有「常温」「冷藏」两种温度，按需购买～'],
     ['AED', '门店配备 AED 自动体外除颤仪，时刻准备，为安全护航。', 'assets/fac-aed.jpg']
   ];
   function pickFac(el){
@@ -4102,7 +4160,7 @@
 
   /* ---------- 引导版本 A/B 切换（有券/无券） ---------- */
   function applyCouponMode(){
-    $('welcome-sub').textContent = DEMO_COUPON ? '新人礼包已放入你的卡包' : '第一次来？3 分钟看懂团课怎么玩';
+    $('welcome-sub').textContent = DEMO_COUPON ? '新人礼包已存入你的卡包' : '第一次来？3 分钟看懂团课怎么玩';
     $('welcome-gift').style.display = DEMO_COUPON ? '' : 'none';
     $('welcome-plain').style.display = DEMO_COUPON ? 'none' : '';
     $('mine-coupon').textContent = DEMO_COUPON ? '2' : '0';
@@ -4131,7 +4189,10 @@
     updateEmptyNewbie();
     var cf = $('cc-fav');
     cf.classList.remove('on');
-    cf.textContent = '♡ 收藏教练';
+    cf.textContent = '♡ 关注教练';
+    OA_FOLLOWED = false;
+    updateOA();
+    $('btn-oa').textContent = '🔀 切换：已关注公众号';
     document.querySelectorAll('.journey-number').forEach(function(n){ n.textContent = '0'; });
     showTrainingRecord();
     goTab('index');
@@ -4158,7 +4219,7 @@
     { sel: '#tab-sport', page: 'index', text: '第一节课完成，打卡成功！你的训练记录和课后合照，都收在底部「运动」里' },
     { sel: '#trainingRecordTab', page: 'sport', text: '「训练记录」是你的训练日历：每一次上课都记在对应日期，累计次数、时长都在这里' },
     { sel: '#sportWallTab', page: 'sport', text: '课后合照教练会传到「运动墙」，来收你的第一张课堂合照', onShow: function(){ showSportWall(); } },
-    { sel: '#pill-fav', page: 'home', text: '喜欢这节课的教练？收藏他，下次约课点「收藏教练」一筛就找到' }
+    { sel: '#pill-fav', page: 'home', text: '喜欢这节课的教练？关注他，下次约课点「关注教练」一筛就找到' }
   ];
   function startPostClassGuide(){
     /* 演示：把训练历程刷成「已上完第一节课」的状态 */
@@ -4170,7 +4231,7 @@
     toast('首课完成后的某天，再次打开小程序');
     setTimeout(function(){
       startTour(POSTCLASS_STEPS, function(){
-        toast('下次约课点筛选栏「收藏教练」，快速约到他的课');
+        toast('下次约课点筛选栏「关注教练」，快速约到他的课');
       }, '去约下一课 ›');
     }, 1500);
   }
