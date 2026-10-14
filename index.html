@@ -692,6 +692,77 @@
   .guide-next.ghost { background: transparent; color: #9a9ea8; }
   .end-cs { margin-top: 14px; text-align: center; font-size: 12px; color: #9a9ea8; }
 
+  /* ============ 课程详情页（还原线上截图） ============ */
+  #page-coursedetail { padding-bottom: 0; background: #fff; }
+  .cd-hero { height: 290px; background: #2c3140 center/cover; }
+  .cd-hero .statusbar { color: #fff; }
+  .cd-hero .co-top { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px 0; }
+  .cd-dark {
+    position: relative; margin-top: -22px; border-radius: 22px 22px 0 0;
+    background: #12141f; color: #fff; padding: 20px 16px 22px;
+  }
+  .cd-title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .cd-title-row h1 { font-size: 21px; font-weight: 800; letter-spacing: 0.5px; }
+  .cd-share {
+    flex: none; width: 46px; height: 30px; border-radius: 999px; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.4); background: transparent; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cd-price-row { margin-top: 12px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .cd-price-row > b { font-size: 16px; font-weight: 800; }
+  .cd-tags { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+  .cd-tags i {
+    font-style: normal; font-size: 11px; color: #1b1e2e; background: #dde2f7;
+    border-radius: 999px; padding: 4px 10px; font-weight: 600;
+  }
+  .cd-tags i.easy { background: #d8f3e3; color: #0d7a45; }
+  .cd-tags i.mid { background: #fdeecd; color: #8a6d1a; }
+  .cd-tags i.hard { background: #ffe0d6; color: #c2431f; }
+  .cd-line { margin-top: 14px; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+  .cd-line svg { flex: none; }
+  .cd-line .cd-arrow { margin-left: auto; color: rgba(255,255,255,0.55); font-size: 18px; font-weight: 400; }
+  .cd-addr { margin-top: 10px; font-size: 11px; color: #8f96ab; display: flex; align-items: center; gap: 6px; }
+  .cd-store-btns { margin-top: 14px; display: flex; gap: 10px; }
+  .cd-store-btns button {
+    flex: 1; height: 40px; border-radius: 999px; cursor: pointer; font-size: 13px;
+    border: 1px solid rgba(255,255,255,0.35); background: transparent; color: #fff;
+  }
+  .cd-coach-title { margin-top: 22px; font-size: 16px; font-weight: 800; }
+  .cd-coach-card {
+    margin-top: 10px; background: #fff; border-radius: 16px; padding: 10px 12px;
+    display: flex; align-items: center; gap: 12px; cursor: pointer;
+  }
+  .cd-coach-avatar {
+    width: 56px; height: 56px; border-radius: 12px; flex: none;
+    background: linear-gradient(140deg, #5a6273, #2e3442);
+    display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.85);
+  }
+  .cd-coach-info { flex: 1; }
+  .cd-coach-info b { display: block; font-size: 15px; color: #e05a12; }
+  .cd-coach-info span { display: block; margin-top: 4px; font-size: 12px; color: #9a9ea8; }
+  .cd-coach-card > .cd-arrow { color: #b9bdc9; font-size: 18px; }
+  .cd-white { background: #f6f6f8; padding: 4px 0 16px; }
+  .cd-sec { margin: 10px 12px 0; background: #fff; border-radius: 14px; padding: 16px 14px; }
+  .cd-sec h2 { font-size: 15px; font-weight: 800; color: #111; display: flex; align-items: center; gap: 7px; }
+  .cd-sec > p { margin-top: 10px; font-size: 13px; color: #555; line-height: 1.85; }
+  .cd-sec ul { margin: 10px 0 0; padding-left: 18px; }
+  .cd-sec li { font-size: 12px; color: #777; line-height: 1.8; margin-bottom: 6px; }
+  .cd-points { margin-top: 10px; }
+  .cd-points .pt { display: flex; gap: 8px; font-size: 13px; color: #444; line-height: 1.7; padding: 7px 0; border-top: 1px solid #f5f5f7; }
+  .cd-points .pt:first-child { border-top: 0; }
+  .cd-points .pt i { font-style: normal; flex: none; }
+  .cd-cta {
+    position: sticky; bottom: 0; z-index: 5;
+    background: rgba(255,255,255,0.97); padding: 10px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -1px 0 #f0f0f2;
+  }
+  .cd-cta button {
+    width: 100%; height: 46px; border: 0; border-radius: 999px; cursor: pointer;
+    background: #12141f; color: #fff; font-size: 15px; font-weight: 700;
+  }
+  .cd-cta button.full { background: #12141f; }
+
+
   /* 授权弹窗 */
   .auth-box {
     width: 280px; background: #fff; border-radius: 16px; overflow: hidden;
@@ -2658,7 +2729,7 @@
         </div>
 
         <div id="course-list">
-          <div class="course full" data-newbie="0" onclick="courseDetail(event)">
+          <div class="course full" data-newbie="0" onclick="courseDetail(event,'爵士舞 SUPER JAZZ','¥108.00','16:00–16:50','进阶','深圳嘉乐道店团课教室A','full')">
             <div class="time">16:00<span class="sep">–</span>16:50</div>
             <div class="coach"></div>
             <div class="info">
@@ -2669,7 +2740,7 @@
             <button class="btn queue" onclick="joinQueue(event,'爵士舞 SUPER JAZZ')">排队</button>
           </div>
 
-          <div class="course" data-newbie="1" id="tour-course" onclick="courseDetail(event)">
+          <div class="course" data-newbie="1" id="tour-course" onclick="courseDetail(event,'综合体能训练-初阶课','¥130.00','17:00–18:00','新手友好','深圳嘉乐道店团课教室A')">
             <div class="time">17:00<span class="sep">–</span>18:00</div>
             <div class="coach"></div>
             <div class="info">
@@ -2680,7 +2751,7 @@
             <button class="btn" id="tour-book" onclick="tryBook('easy','综合体能训练-初阶课','17:00–18:00','¥130.00')">预约</button>
           </div>
 
-          <div class="course" data-newbie="1" onclick="courseDetail(event)">
+          <div class="course" data-newbie="1" onclick="courseDetail(event,'格莱美舞蹈 BODYJAM','¥69.10','19:10–19:50','新手友好','深圳嘉乐道店团课教室A')">
             <div class="time">19:10<span class="sep">–</span>19:50</div>
             <div class="coach"></div>
             <div class="info">
@@ -2691,7 +2762,7 @@
             <button class="btn" onclick="tryBook('easy','格莱美舞蹈 BODYJAM','19:10–19:50','¥69.10')">预约</button>
           </div>
 
-          <div class="course" data-newbie="0" onclick="courseDetail(event)">
+          <div class="course" data-newbie="0" onclick="courseDetail(event,'综合体能训练-常规课','¥108.00','20:00–20:15','高强度','深圳嘉乐道店团课教室A')">
             <div class="time">20:00<span class="sep">–</span>20:15</div>
             <div class="coach"></div>
             <div class="info">
@@ -2722,7 +2793,7 @@
           <div class="right"><span class="dist">11.5km</span></div>
         </div>
 
-        <div class="course" data-newbie="0" onclick="courseDetail(event)">
+        <div class="course" data-newbie="0" onclick="courseDetail(event,'黑暗骑行 DARK TOUR','¥108.00','08:30–09:20','高强度','深圳嘉乐道店单车教室')">
           <div class="time">08:30<span class="sep">–</span>09:20</div>
           <div class="coach"></div>
           <div class="info">
@@ -3415,6 +3486,94 @@
         </div>
       </div>
 
+      <!-- ========== 页面：课程详情页（还原线上截图） ========== -->
+      <div class="page" id="page-coursedetail">
+        <div class="cd-hero" id="cd-hero">
+          <div class="statusbar">
+            <span>14:45</span>
+            <span class="icons">
+              <svg width="17" height="11" viewBox="0 0 17 11" fill="#fff"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+              <svg width="16" height="11" viewBox="0 0 16 11" fill="#fff"><path d="M8 9.2 5.6 6.8a3.4 3.4 0 0 1 4.8 0L8 9.2zM3.5 4.7a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.6 4.6 0 0 0-6.2 0L3.5 4.7zM1 2.2a9.8 9.8 0 0 1 14 0l-1.4 1.4a8 8 0 0 0-11.2 0L1 2.2z"/></svg>
+              <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#fff" opacity="0.5"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#fff"/><path d="M23.5 4v4a2 2 0 0 0 0-4z" fill="#fff" opacity="0.5"/></svg>
+            </span>
+          </div>
+          <div class="co-top">
+            <div class="nav-pill">
+              <span onclick="goTab('home')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span onclick="goTab('index')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8 8 3l5.5 5V13a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V8z"/></svg></span>
+            </div>
+            <div class="capsule dark">
+              <span><svg width="18" height="5" viewBox="0 0 18 5" fill="#111"><circle cx="2.5" cy="2.5" r="2"/><circle cx="9" cy="2.5" r="2"/><circle cx="15.5" cy="2.5" r="2"/></svg></span>
+              <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.6" stroke="#111" stroke-width="1.6"/><circle cx="7" cy="7" r="2" fill="#111"/></svg></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cd-dark">
+          <div class="cd-title-row">
+            <h1 id="cd-name">综合体能训练-初阶课</h1>
+            <button class="cd-share" onclick="toast('演示版：分享课程')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5.5 19 12l-6 6.5M19 12H6a3 3 0 0 0-3 3v3"/></svg></button>
+          </div>
+          <div class="cd-price-row">
+            <b id="cd-price">¥130.00</b>
+            <span class="cd-tags" id="cd-tags"></span>
+          </div>
+          <div class="cd-line">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>
+            <span id="cd-time">9月30日 星期三 17:00 - 18:00</span>
+          </div>
+          <div class="cd-line">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5 12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1v-9.5z"/></svg>
+            <span id="cd-venue">深圳嘉乐道店团课教室A</span>
+            <span class="cd-arrow" onclick="toast('演示版：跳转门店主页')">›</span>
+          </div>
+          <div class="cd-addr">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8f96ab" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+            广东省深圳市南山区嘉乐道 1 号 3 楼 301（演示地址）
+          </div>
+          <div class="cd-store-btns">
+            <button onclick="toast('演示版：查看门店指引')">门店指引</button>
+            <button onclick="toast('演示版：打开地图导航')">门店定位</button>
+          </div>
+          <div class="cd-coach-title">授课教练</div>
+          <div class="cd-coach-card" onclick="toast('演示版：跳转教练主页')">
+            <div class="cd-coach-avatar">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20a7.4 7.4 0 0 1 14.4 0"/></svg>
+            </div>
+            <div class="cd-coach-info"><b>Jessie肥牛</b><span>主教练</span></div>
+            <span class="cd-arrow">›</span>
+          </div>
+        </div>
+
+        <div class="cd-white">
+          <section class="cd-sec">
+            <h2>课程介绍</h2>
+            <p id="cd-intro"></p>
+          </section>
+          <section class="cd-sec">
+            <h2>装备建议 · 器械准备</h2>
+            <div class="cd-points" id="cd-equip"></div>
+          </section>
+          <section class="cd-sec">
+            <h2>课前小贴士</h2>
+            <div class="cd-points" id="cd-tips"></div>
+          </section>
+          <section class="cd-sec">
+            <h2>安全提示</h2>
+            <ul>
+              <li>请穿着专业的运动服、运动鞋或佩戴必需的运动装备</li>
+              <li>患有不适宜运动的疾病、正在伤病恢复期，或女性在孕期、哺乳期不适宜参加本课程</li>
+              <li>请对自身身体情况进行判断，在教练指导下控制运动强度；如出现任何身体不适，请立即停止训练并告知教练或工作人员</li>
+              <li>请勿携带珠宝饰品等贵重物品进入门店，或使用门店内带锁储物柜妥善保管</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="cd-cta">
+          <button id="cd-book-btn" onclick="cdBook()">立即预约</button>
+        </div>
+      </div>
+
       <!-- ========== 精简指引 4 屏 ========== -->
       <div class="guide-overlay" id="guide">
         <div class="guide-top">
@@ -3792,10 +3951,78 @@
     toast('放课前 10 分钟将提醒你');
   }
 
-  /* ---------- 课程卡片点击（演示占位） ---------- */
-  function courseDetail(e){
+  /* ---------- 课程详情页（还原线上截图：难度/教练/简介/装备/课前提示） ---------- */
+  var COURSE_INFO = {
+    '综合体能训练-初阶课': {
+      hero: 'assets/room-tuanke.jpg', tags: ['塑形','力量','燃脂'],
+      intro: '为零基础设计的全身综合体能课：轻重量、多组次，教练全程示范带练，帮你建立标准动作模式，安全起步、稳步进阶。一节课下来，全身肌群都被唤醒，情绪也被调动起来！',
+      equip: ['杠铃杆、杠铃片、踏板、训练垫等器械教室已备齐，无需自带', '穿防滑运动鞋与透气运动服，长发建议束起'],
+      tips: ['课前 2 小时清淡饮食，不空腹、不过饱', '自带水杯，课间及时补水', '建议提前 15 分钟到店换装、熟悉场地']
+    },
+    '格莱美舞蹈 BODYJAM': {
+      hero: 'assets/room-tuanke.jpg', tags: ['舞蹈','燃脂','有氧'],
+      intro: '跟随全球流行音乐舞动一整节课，动作简单易学、氛围热烈，燃脂的同时释放表现力，零基础也能轻松跟上。',
+      equip: ['防滑运动鞋、舒适透气的运动服', '无需器械，空手来就行'],
+      tips: ['舞蹈课出汗多，记得自带水杯补水', '课前 2 小时清淡饮食']
+    },
+    '爵士舞 SUPER JAZZ': {
+      hero: 'assets/room-tuanke.jpg', tags: ['舞蹈','燃脂','有氧'],
+      intro: '爵士舞风格编舞课，节奏感与表现力拉满，在燃烧卡路里的同时收获一段完整的舞段，适合有一定运动基础的同学。',
+      equip: ['防滑运动鞋、方便大幅度动作的运动服', '无需器械，空手来就行'],
+      tips: ['出汗量大，建议自带毛巾与水杯', '课前充分热身，踝关节膝关节活动开']
+    },
+    '综合体能训练-常规课': {
+      hero: 'assets/room-zongxun.jpg', tags: ['塑形','力量','燃脂'],
+      intro: '中等偏高强度的全身综合体能训练，复合动作编排 + 心肺冲刺，适合有稳定训练习惯、想进一步提升的同学。',
+      equip: ['训练器械教室已按当节计划备好', '建议穿包裹性好的训练鞋'],
+      tips: ['课前务必充分热身', '强度较高，量力跟练，可随时示意教练调整', '课前 2 小时清淡饮食，自带水杯']
+    },
+    '黑暗骑行 DARK TOUR': {
+      hero: 'assets/room-danche.jpg', tags: ['单车','燃脂','有氧'],
+      intro: '沉浸式室内单车竞速课：光影随音乐节拍律动，在声浪中完成高强度间歇踩踏，一节课酣畅释放。',
+      equip: ['毛巾、水杯必备；锁鞋非必需，硬底运动鞋即可', '骑行裤可选，提升舒适度'],
+      tips: ['课前在教练指导下调节车把高度、座椅高度与座椅距离', '膝盖全程保持微屈，避免关节损伤', '高强度间歇，量力而行']
+    }
+  };
+  var COURSE_DEFAULT = {
+    hero: 'assets/room-tuanke.jpg', tags: ['燃脂','塑形'],
+    intro: '教练全程带练的团体课程，按课程计划完成当日训练内容，适合想要规律运动的你。',
+    equip: ['课程所需器械教室已备好', '穿防滑运动鞋与透气运动服'],
+    tips: ['课前 2 小时清淡饮食', '自带水杯，课间及时补水']
+  };
+  var CD_CUR = null;
+  function courseDetail(e, name, price, time, diff, venue, status){
     if(e.target.closest('.btn')) return;
-    toast('演示版：跳转课程详情页');
+    CD_CUR = { name: name, price: price, time: time, diff: diff, venue: venue, status: status || 'book' };
+    var info = COURSE_INFO[name] || COURSE_DEFAULT;
+    $('cd-name').textContent = name;
+    $('cd-price').textContent = price;
+    $('cd-time').textContent = '9月30日 星期三 ' + time.replace('–', ' - ');
+    $('cd-venue').textContent = venue;
+    $('cd-hero').style.backgroundImage = 'url("' + info.hero + '")';
+    var diffCls = diff === '新手友好' ? 'easy' : diff === '进阶' ? 'mid' : 'hard';
+    var diffTxt = diff === '新手友好' ? '🌱 新手友好' : diff;
+    $('cd-tags').innerHTML = '<i class="' + diffCls + '">' + diffTxt + '</i>'
+      + info.tags.map(function(t){ return '<i>' + t + '</i>'; }).join('');
+    $('cd-intro').textContent = info.intro;
+    $('cd-equip').innerHTML = info.equip.map(function(t){ return '<div class="pt"><i>🎒</i><span>' + t + '</span></div>'; }).join('');
+    $('cd-tips').innerHTML = info.tips.map(function(t){ return '<div class="pt"><i>💡</i><span>' + t + '</span></div>'; }).join('');
+    var btn = $('cd-book-btn');
+    if(CD_CUR.status === 'full'){
+      btn.textContent = '排队（3人等候）';
+      btn.classList.add('full');
+    }else{
+      btn.textContent = '立即预约';
+      btn.classList.remove('full');
+    }
+    showPage('coursedetail');
+    $('page-coursedetail').scrollTop = 0;
+  }
+  function cdBook(){
+    var c = CD_CUR;
+    if(!c) return;
+    if(c.status === 'full'){ toast('已加入「' + c.name + '」排队候补'); return; }
+    tryBook(c.diff === '高强度' ? 'hard' : 'easy', c.name, c.time, c.price, c.venue);
   }
 
   /* ---------- 满员排队（演示占位） ---------- */
